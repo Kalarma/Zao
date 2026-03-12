@@ -389,12 +389,14 @@
     /* ── FOOTER ── */
     .footer {
       text-align: center;
-      padding: 2.5rem 0 1rem;
+      padding: 2rem 1.5rem;
       font-size: .76rem;
       color: var(--sub);
       border-top: 1px solid var(--border);
-      margin-top: .5rem;
+      margin-top: 0;
       letter-spacing: .02em;
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
@@ -706,13 +708,29 @@
     </div>
   </div>
 
-  <div class="footer">
-    © <span id="yr"></span> Zao Barrez-Girardot &nbsp;·&nbsp; Bagnolet (93) &nbsp;·&nbsp; zaogirardot@gmail.com
-  </div>
-
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<footer class="footer">
+  © <span id="yr"></span> Zao Barrez-Girardot &nbsp;·&nbsp; Bagnolet (93) &nbsp;·&nbsp; <span id="email-footer"></span>
+</footer>
+
+<script>
+  /* ── Email reconstruit côté client (anti-obfuscation) ── */
+  (function() {
+    var u = 'zaogirardot';
+    var d = 'gmail.com';
+    var email = u + '@' + d;
+    var mailto = 'mailto:' + email;
+    var pill = document.getElementById('email-pill');
+    var txt  = document.getElementById('email-text');
+    var lnk  = document.getElementById('email-link');
+    var ftr  = document.getElementById('email-footer');
+    if (pill) pill.href = mailto;
+    if (txt)  txt.textContent = email;
+    if (lnk)  { lnk.href = mailto; lnk.textContent = email; }
+    if (ftr)  ftr.textContent = email;
+  })();
+
   /* ── Âge calculé dynamiquement ── */
   (function () {
     const birth = new Date(2006, 8, 20);
@@ -720,26 +738,65 @@
     let age = today.getFullYear() - birth.getFullYear();
     if (today < new Date(today.getFullYear(), 8, 20)) age--;
     const txt = age + ' ans';
-    document.getElementById('age-pill').textContent = '📅 ' + txt;
-    document.getElementById('age-side').textContent = txt;
-    document.getElementById('yr').textContent = today.getFullYear();
+    const agePill = document.getElementById('age-pill');
+    const ageSide = document.getElementById('age-side');
+    if (agePill) agePill.textContent = '📅 ' + txt;
+    if (ageSide) ageSide.textContent = txt;
+    const yr = document.getElementById('yr');
+    if (yr) yr.textContent = today.getFullYear();
   })();
 
-  /* ── BTS : badge automatique après juillet 2026 ── */
+  /* ── JDR années depuis 2019 ── */
+  (function() {
+    const years = new Date().getFullYear() - 2019;
+    const el = document.getElementById('jdr-years');
+    if (el) el.textContent = years + ' ans';
+  })();
+
+  /* ── BTS badge auto après juillet 2026 ── */
   (function () {
-    const btsEnd = new Date(2026, 6, 1); // 1er juillet 2026
+    const btsEnd = new Date(2026, 6, 1);
     const today = new Date();
     const entry = document.getElementById('bts-entry');
     const dateEl = document.getElementById('bts-date');
+    if (!dateEl) return;
     if (today < btsEnd) {
-      // Encore en cours
-      entry.classList.add('current');
+      if (entry) entry.classList.add('current');
       dateEl.innerHTML = '2024 – 2026 <span class="tl-badge green">En cours</span>';
     } else {
-      // BTS obtenu
       dateEl.innerHTML = '2024 – 2026 <span class="tl-badge" style="background:#f0fdf4;border:1px solid #86efac;color:#15803d">✓ Obtenu</span>';
     }
   })();
 
-  /* ── Scroll reveal timeline ── */
-  const obs = new Intersect
+  /* ── Timeline visible par défaut + reveal au scroll ── */
+  const tliItems = document.querySelectorAll('.tli');
+  const observer = new IntersectionObserver(
+    function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) e.target.classList.add('vis');
+      });
+    },
+    { threshold: 0.05 }
+  );
+  tliItems.forEach(function(el) {
+    el.classList.add('animate');
+    observer.observe(el);
+  });
+  // Fallback : tout afficher après 700ms si l'observer ne se déclenche pas
+  setTimeout(function() {
+    tliItems.forEach(function(el) { el.classList.add('vis'); });
+  }, 700);
+
+  /* ── Lightbox photo ── */
+  var avWrap   = document.getElementById('avWrap');
+  var lightbox = document.getElementById('lightbox');
+  if (avWrap && lightbox) {
+    avWrap.addEventListener('click', function() { lightbox.classList.add('open'); });
+    lightbox.addEventListener('click', function() { lightbox.classList.remove('open'); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') lightbox.classList.remove('open');
+    });
+  }
+</script>
+</body>
+</html>
