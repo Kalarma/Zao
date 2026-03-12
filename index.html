@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zao Barrez-Girardot — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:       #f0f2f5;
+      --surface:  #ffffff;
+      --border:   #e5e8ed;
+      --border2:  #d0d4db;
+      --text:     #111827;
+      --muted:    #6b7280;
+      --sub:      #9ca3af;
+      --accent:   #2563eb;
+      --accent-s: #eff4ff;
+      --accent-b: #bfdbfe;
+      --green:    #16a34a;
+      --green-s:  #dcfce7;
+      --green-b:  #86efac;
+      --tag:      #f3f4f6;
+      --r:        16px;
+      --rs:       10px;
+      --sh:       0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.06);
+      --sh-h:     0 4px 24px rgba(37,99,235,.13);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--surface);
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      box-shadow: var(--sh);
+      padding: 2.8rem 3rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2.2rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: up .55s .05s ease forwards;
+    }
+    @media (max-width: 580px) {
+      .hero { grid-template-columns: 1fr; padding: 2rem; gap: 1.4rem; }
+    }
+
+    .av { position: relative; width: 100px; height: 100px; flex-shrink: 0; }
+    .av img, .av-ph {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 3px solid var(--border2);
+      background: var(--bg);
+    }
+    .av-ph {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem;
+    }
+    .av-dot {
+      position: absolute; bottom: 4px; right: 4px;
+      width: 14px; height: 14px;
+      background: #22c55e;
+      border-radius: 50%;
+      border: 2.5px solid #fff;
+    }
+
+    .hero-name {
+      font-size: 2rem; font-weight: 700;
+      letter-spacing: -.035em; color: var(--text);
+      margin-bottom: .2rem;
+    }
+    .hero-role { font-size: .9rem; color: var(--muted); margin-bottom: 1rem; }
+    .hero-bio {
+      font-family: 'Lora', serif;
+      font-size: .93rem; color: #374151;
+      line-height: 1.8; max-width: 560px;
+      margin-bottom: 1.4rem;
+    }
+
+    .pills { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .pill {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: .28rem .85rem;
+      border-radius: 999px;
+      font-size: .76rem; font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--tag); color: var(--muted);
+      transition: .2s;
+    }
+    .pill:hover { border-color: var(--accent-b); color: var(--accent); background: var(--accent-s); }
+    .pill.green { background: var(--green-s); border-color: var(--green-b); color: var(--green); }
+
+    /* ── LAYOUT ── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      box-shadow: var(--sh);
+      padding: 1.8rem 2rem;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: up .55s ease forwards;
+      transition: box-shadow .25s, border-color .25s;
+    }
+    .card:hover { box-shadow: var(--sh-h); border-color: var(--accent-b); }
+    .card:nth-child(1) { animation-delay: .10s; }
+    .card:nth-child(2) { animation-delay: .16s; }
+    .card:nth-child(3) { animation-delay: .22s; }
+    .card:nth-child(4) { animation-delay: .28s; }
+
+    .ct {
+      font-size: .66rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--sub);
+      margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .ct::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── TIMELINE ── */
+    .tl { display: flex; flex-direction: column; }
+
+    .tli {
+      padding: 1.1rem 0 1.1rem 1.4rem;
+      border-left: 2px solid var(--border);
+      position: relative;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .4s, transform .4s;
+    }
+    .tli.vis { opacity: 1; transform: none; }
+    .tli:last-child { padding-bottom: 0; }
+    .tli::before {
+      content: '';
+      position: absolute; left: -5px; top: 1.45rem;
+      width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--accent-b);
+    }
+    /* Point doré pour l'expérience en cours */
+    .tli.current::before {
+      background: var(--green);
+      box-shadow: 0 0 0 2px var(--green-b);
+    }
+
+    .tl-date { font-size: .7rem; font-weight: 700; color: var(--accent); letter-spacing: .04em; margin-bottom: .15rem; }
+    .tli.current .tl-date { color: var(--green); }
+    .tl-badge {
+      display: inline-block;
+      padding: .1rem .5rem;
+      background: var(--green-s); border: 1px solid var(--green-b);
+      border-radius: 999px;
+      font-size: .67rem; font-weight: 700; color: var(--green);
+      margin-left: .5rem;
+      vertical-align: middle;
+    }
+    .tl-title { font-size: .93rem; font-weight: 600; color: var(--text); margin-bottom: .1rem; }
+    .tl-sub { font-size: .82rem; color: var(--muted); margin-bottom: .5rem; }
+    .tl-ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: .2rem; }
+    .tl-ul li {
+      font-size: .83rem; color: #4b5563;
+      padding-left: 1rem; position: relative;
+    }
+    .tl-ul li::before { content: '–'; position: absolute; left: 0; color: var(--border2); }
+
+    /* ── SKILLS ── */
+    .sg { margin-bottom: 1.1rem; }
+    .sg:last-child { margin-bottom: 0; }
+    .sl { font-size: .69rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--sub); margin-bottom: .55rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: .38rem; }
+    .tag {
+      display: inline-block;
+      padding: .25rem .7rem;
+      background: var(--tag); border: 1px solid var(--border);
+      border-radius: var(--rs);
+      font-size: .76rem; font-weight: 500; color: #374151;
+      transition: .2s;
+    }
+    .tag:hover, .tag.hi { background: var(--accent-s); border-color: var(--accent-b); color: var(--accent); }
+
+    /* ── INFO LIST ── */
+    .il { display: flex; flex-direction: column; gap: .8rem; }
+    .ir { display: flex; align-items: flex-start; gap: .7rem; }
+    .ii {
+      width: 30px; height: 30px;
+      border-radius: var(--rs);
+      background: var(--tag); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; flex-shrink: 0;
+    }
+    .ik { font-size: .67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--sub); }
+    .iv { font-size: .85rem; font-weight: 500; color: var(--text); }
+    .iv a { color: var(--accent); }
+
+    /* ── INTERESTS ── */
+    .ig { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+    .it {
+      background: var(--tag); border: 1px solid var(--border);
+      border-radius: var(--rs); padding: .85rem .9rem;
+      transition: .2s;
+    }
+    .it:hover { background: var(--accent-s); border-color: var(--accent-b); }
+    .it .ico { font-size: 1.1rem; margin-bottom: .25rem; }
+    .it .nm { font-size: .8rem; font-weight: 600; color: var(--text); }
+    .it .ds { font-size: .73rem; color: var(--muted); margin-top: .1rem; }
+    .it.full { grid-column: 1 / -1; }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <!--
+      PHOTO : pour ajouter ta photo
+      1. Mets photo.jpg dans le même dossier que index.html
+      2. Décommente la ligne <img> ci-dessous
+      3. Supprime le <div class="av-ph">
+    -->
+    <div class="av">
+      <img src="photo.jpg" alt="Zao Barrez-Girardot"/>
+      <div class="av-dot" title="En poste"></div>
+    </div>
+
+    <div>
+      <h1 class="hero-name">Zao Barrez-Girardot</h1>
+      <p class="hero-role">Conseiller vendeur en alternance · Les Gentlemen du Jeu &nbsp;·&nbsp; BTS MCO, Sup de Vente Paris</p>
+      <p class="hero-bio">
+        Étudiant en BTS Management Commercial Opérationnel, actuellement en alternance
+        dans le monde du jeu. Créatif, communicant et passionné par l'univers ludique,
+        je mets mes compétences au service d'une expérience client de qualité.
+      </p>
+      <div class="pills">
+        <span class="pill green">🟢 En poste — Les Gentlemen du Jeu</span>
+        <a href="mailto:zaogirardot@gmail.com" class="pill">✉️ zaogirardot@gmail.com</a>
+        <a href="tel:0610749509" class="pill">📞 06 10 74 95 09</a>
+        <span class="pill">📍 Bagnolet (93)</span>
+        <span class="pill" id="age-pill">📅 …</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DEUX COLONNES ═══ -->
+  <div class="grid">
+
+    <!-- ── COLONNE GAUCHE ── -->
+    <div>
+
+      <!-- EXPÉRIENCES -->
+      <div class="card">
+        <p class="ct">Expériences professionnelles</p>
+        <div class="tl">
+
+          <div class="tli current">
+            <div class="tl-date">Sept. 2024 – Aujourd'hui <span class="tl-badge">En cours</span></div>
+            <div class="tl-title">Conseiller vendeur — Alternance</div>
+            <div class="tl-sub">Les Gentlemen du Jeu</div>
+            <ul class="tl-ul">
+              <li>Accueil et conseil client sur l'offre de jeux de société et de rôle</li>
+              <li>Vente et fidélisation de la clientèle</li>
+              <li>Mise en rayon et gestion des stocks</li>
+              <li>Animation et démonstration de jeux en magasin</li>
+            </ul>
+          </div>
+
+          <div class="tli">
+            <div class="tl-date">Fév. 2024</div>
+            <div class="tl-title">Agent de distribution — Magazine Akiltour</div>
+            <div class="tl-sub">Festival International des Jeux (FIJ) · Cannes</div>
+            <ul class="tl-ul">
+              <li>Organisation et distribution du magazine gratuit Akiltour</li>
+              <li>Coordination avec les équipes de l'événement</li>
+              <li>Mise en place du stand, gestion des stocks</li>
+              <li>Réactivité face aux imprévus sur le terrain</li>
+            </ul>
+          </div>
+
+          <div class="tli">
+            <div class="tl-date">Juil. 2023</div>
+            <div class="tl-title">Agent d'accueil et de distribution — Magazine Akiltour</div>
+            <div class="tl-sub">Paris est Ludique (PEL) · Paris</div>
+            <ul class="tl-ul">
+              <li>Accueil et orientation des visiteurs</li>
+              <li>Distribution du magazine Akiltour</li>
+            </ul>
+          </div>
+
+          <div class="tli">
+            <div class="tl-date">Juil. 2022</div>
+            <div class="tl-title">Agent d'accueil et de distribution — Magazine Akiltour</div>
+            <div class="tl-sub">Paris est Ludique (PEL) · Paris</div>
+            <ul class="tl-ul">
+              <li>Accueil positif des visiteurs à l'entrée du salon</li>
+              <li>Orientation des participants et réponse à leurs questions</li>
+              <li>Collaboration avec l'équipe événementielle</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FORMATIONS -->
+      <div class="card">
+        <p class="ct">Formations</p>
+        <div class="tl">
+
+          <div class="tli current">
+            <div class="tl-date">2024 – 2026 <span class="tl-badge">En cours</span></div>
+            <div class="tl-title">BTS Management Commercial Opérationnel — Alternance</div>
+            <div class="tl-sub">Sup de Vente · Paris 14e</div>
+            <ul class="tl-ul">
+              <li>Contact école : Franck Bizeul — fbizeul@supdev.fr</li>
+            </ul>
+          </div>
+
+          <div class="tli">
+            <div class="tl-date">2021 – 2024</div>
+            <div class="tl-title">Baccalauréat Général</div>
+            <div class="tl-sub">St Benoît de l'Europe · Bagnolet</div>
+            <ul class="tl-ul">
+              <li>Spécialités : Sciences Économiques et Sociales + Mathématiques</li>
+              <li>Option Art</li>
+            </ul>
+          </div>
+
+          <div class="tli">
+            <div class="tl-date">2021</div>
+            <div class="tl-title">Brevet des Collèges — Mention Bien</div>
+            <div class="tl-sub">St Benoît de l'Europe · Bagnolet</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── COLONNE DROITE ── -->
+    <div>
+
+      <!-- COMPÉTENCES -->
+      <div class="card">
+        <p class="ct">Compétences</p>
+
+        <div class="sg">
+          <p class="sl">Commerce & vente</p>
+          <div class="tags">
+            <span class="tag hi">Conseil client</span>
+            <span class="tag hi">Vente active</span>
+            <span class="tag hi">Fidélisation</span>
+            <span class="tag">Gestion de stocks</span>
+            <span class="tag">Mise en rayon</span>
+            <span class="tag">Tenue de caisse</span>
+          </div>
+        </div>
+
+        <div class="sg">
+          <p class="sl">Savoir-être</p>
+          <div class="tags">
+            <span class="tag hi">Créativité</span>
+            <span class="tag hi">Écoute active</span>
+            <span class="tag">Improvisation</span>
+            <span class="tag">Optimisme</span>
+            <span class="tag">Communication</span>
+            <span class="tag">Travail en équipe</span>
+            <span class="tag">Adaptabilité</span>
+            <span class="tag">Sens du service</span>
+          </div>
+        </div>
+
+        <div class="sg">
+          <p class="sl">Domaine</p>
+          <div class="tags">
+            <span class="tag hi">Connaissance des jeux</span>
+            <span class="tag">Jeux de société</span>
+            <span class="tag">Jeux de rôle</span>
+            <span class="tag">Animation jeux</span>
+          </div>
+        </div>
+
+        <div class="sg">
+          <p class="sl">Informatique</p>
+          <div class="tags">
+            <span class="tag">Excel</span>
+            <span class="tag">Word</span>
+            <span class="tag">PowerPoint</span>
+            <span class="tag">Windows</span>
+            <span class="tag">Pix · 600 pts</span>
+          </div>
+        </div>
+
+        <div class="sg">
+          <p class="sl">Langues</p>
+          <div class="tags">
+            <span class="tag hi">🇫🇷 Français natif</span>
+            <span class="tag">🇬🇧 Anglais B1</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CONTACT -->
+      <div class="card">
+        <p class="ct">Contact</p>
+        <div class="il">
+          <div class="ir">
+            <div class="ii">✉️</div>
+            <div>
+              <div class="ik">Email</div>
+              <div class="iv"><a href="mailto:zaogirardot@gmail.com">zaogirardot@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="ir">
+            <div class="ii">📞</div>
+            <div><div class="ik">Téléphone</div><div class="iv">06 10 74 95 09</div></div>
+          </div>
+          <div class="ir">
+            <div class="ii">📍</div>
+            <div><div class="ik">Ville</div><div class="iv">Bagnolet, 93</div></div>
+          </div>
+          <div class="ir">
+            <div class="ii">🎂</div>
+            <div><div class="ik">Âge</div><div class="iv" id="age-side">—</div></div>
+          </div>
+          <div class="ir">
+            <div class="ii" style="font-size:.68rem;font-weight:800;color:#0a66c2;">in</div>
+            <div><div class="ik">LinkedIn</div><div class="iv">Zao Barrez-Girardot</div></div>
+          </div>
+          <div class="ir">
+            <div class="ii">📸</div>
+            <div><div class="ik">Instagram</div><div class="iv">@Ka1arma</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTRES D'INTÉRÊT -->
+      <div class="card">
+        <p class="ct">Centres d'intérêt</p>
+        <div class="ig">
+          <div class="it">
+            <div class="ico">🐉</div>
+            <div class="nm">Jeux de rôle</div>
+            <div class="ds">Maître du Jeu depuis 4 ans</div>
+          </div>
+          <div class="it">
+            <div class="ico">🎲</div>
+            <div class="nm">Jeux de société</div>
+            <div class="ds">Culture ludique</div>
+          </div>
+          <div class="it full">
+            <div class="ico">📚</div>
+            <div class="nm">Littérature fantastique</div>
+            <div class="ds">Fantasy, heroic fantasy, univers imaginaires</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  /* Âge calculé dynamiquement depuis le 20/09/2006 */
+  (function () {
+    const birth = new Date(2006, 8, 20); // mois 0-indexé : 8 = septembre
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const dm = today.getMonth() - birth.getMonth();
+    if (dm < 0 || (dm === 0 && today.getDate() < birth.getDate())) age--;
+    const txt = age + ' ans';
+    document.getElementById('age-pill').textContent = '📅 ' + txt;
+    document.getElementById('age-side').textContent = txt;
+  })();
+
+  /* Scroll reveal sur la timeline */
+  const obs = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.tli').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
