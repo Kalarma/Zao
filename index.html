@@ -219,18 +219,8 @@
     .card:nth-child(3) { animation-delay: .24s; }
     .card:nth-child(4) { animation-delay: .31s; }
 
-    /* Accent bar en haut de chaque card */
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 2rem; right: 2rem;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-b), transparent);
-      border-radius: 0 0 4px 4px;
-      opacity: 0;
-      transition: opacity .3s;
-    }
-    .card:hover::before { opacity: 1; }
+    /* Accent bar en haut de chaque card — supprimée */
+    .card::before { display: none; }
 
     .ct {
       font-size: .65rem; font-weight: 700;
@@ -290,29 +280,24 @@
 
     /* ── CARTE DONJON (spéciale) ── */
     .donjon-card {
-      background: linear-gradient(135deg, #1a1025 0%, #2d1b4e 100%);
-      border-color: #4c1d95;
-      color: #e9d5ff;
+      border-color: #e0e7ff;
+      background: linear-gradient(160deg, #fafbff 0%, #f0f4ff 100%);
     }
-    .donjon-card::before { background: linear-gradient(90deg, #7c3aed, #2563eb); opacity: 1; }
-    .donjon-card .ct { color: #a78bfa; }
-    .donjon-card .ct::after { background: #3b2067; }
-    .donjon-card:hover { box-shadow: 0 8px 32px rgba(124,58,237,.25); border-color: #7c3aed; }
-    .donjon-card .tl-title { color: #f3e8ff; }
-    .donjon-card .tl-sub { color: #a78bfa; }
-    .donjon-card .tli { border-left-color: #4c1d95; }
-    .donjon-card .tli::before { background: #7c3aed; box-shadow: 0 0 0 2px #4c1d95; }
-    .donjon-card .tl-date { color: #c4b5fd; }
-    .donjon-card .tl-ul li { color: #ddd6fe; }
-    .donjon-card .tl-ul li::before { color: #7c3aed; }
+    .donjon-card .ct { color: #6366f1; }
+    .donjon-card .ct::after { background: #e0e7ff; }
+    .donjon-card:hover { box-shadow: 0 8px 32px rgba(99,102,241,.13); border-color: #c7d2fe; }
+    .donjon-card .tli { border-left-color: #c7d2fe; }
+    .donjon-card .tli::before { background: #6366f1; box-shadow: 0 0 0 2px #c7d2fe; }
+    .donjon-card .tl-date { color: #6366f1; }
+    .donjon-card .tl-sub a { color: #6366f1; border-bottom: 1px dotted #c7d2fe; }
 
     .donjon-badge {
       display: inline-flex; align-items: center; gap: .4rem;
-      padding: .28rem .8rem;
-      background: rgba(124,58,237,.2);
-      border: 1px solid #7c3aed;
+      padding: .08rem .6rem;
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
       border-radius: 999px;
-      font-size: .73rem; font-weight: 700; color: #c4b5fd;
+      font-size: .65rem; font-weight: 700; color: #6366f1;
     }
 
     /* ── SKILLS ── */
@@ -329,7 +314,7 @@
       transition: .2s;
     }
     .tag:hover, .tag.hi { background: var(--accent-s); border-color: var(--accent-b); color: var(--accent); }
-    .tag.purple { background: #f5f3ff; border-color: #ddd6fe; color: #7c3aed; }
+    .tag.purple { background: #eef2ff; border-color: #c7d2fe; color: #6366f1; }
 
     /* ── LANG BARS ── */
     .lrow { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid var(--border); }
@@ -384,12 +369,12 @@
     .social-btn.li:hover { background: var(--accent-s); color: var(--accent); border-color: var(--accent-b); }
     .social-btn.ig { border-color: #fbcfe8; }
     .social-btn.ig:hover { background: #fdf2f8; color: #9d174d; border-color: #fbcfe8; }
-    .social-btn.dj { border-color: #ddd6fe; }
-    .social-btn.dj:hover { background: #f5f3ff; color: #7c3aed; border-color: #c4b5fd; }
+    .social-btn.dj { border-color: #c7d2fe; }
+    .social-btn.dj:hover { background: #eef2ff; color: #6366f1; border-color: #a5b4fc; }
     .social-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: .9rem; flex-shrink: 0; }
     .social-icon.li { background: #2563eb; color: #fff; font-weight: 900; font-size: .7rem; }
     .social-icon.ig { background: linear-gradient(135deg,#f97316,#ec4899,#8b5cf6); color: #fff; }
-    .social-icon.dj { background: #4c1d95; color: #c4b5fd; }
+    .social-icon.dj { background: #6366f1; color: #fff; }
     .social-label { flex: 1; }
     .social-handle { font-size: .72rem; font-weight: 400; color: var(--sub); }
     .social-arrow { color: var(--sub); font-size: .8rem; transition: transform .2s; }
@@ -506,10 +491,10 @@
       <div class="card donjon-card">
         <p class="ct">Auto-entrepreneur <span class="donjon-badge">🐉 Actif</span></p>
         <div class="tl">
-          <div class="tli current" style="border-left-color:#4c1d95">
-            <div class="tl-date" style="color:#c4b5fd">Fin 2024 – Aujourd'hui <span class="tl-badge" style="background:rgba(124,58,237,.2);border:1px solid #7c3aed;color:#c4b5fd">En activité</span></div>
+          <div class="tli current" style="border-left-color:#c7d2fe">
+            <div class="tl-date" style="color:#6366f1">Fin 2024 – Aujourd'hui <span class="tl-badge" style="background:#eef2ff;border:1px solid #c7d2fe;color:#6366f1">En activité</span></div>
             <div class="tl-title">Fondateur &amp; gérant — Le Donjon de la Guilde</div>
-            <div class="tl-sub"><a href="https://donjondelaguilde.fr" target="_blank" style="color:#a78bfa;border-bottom:1px dotted #7c3aed">donjondelaguilde.fr</a></div>
+            <div class="tl-sub"><a href="https://donjondelaguilde.fr" target="_blank" style="color:#6366f1;border-bottom:1px dotted #c7d2fe">donjondelaguilde.fr</a></div>
             <ul class="tl-ul">
               <li>Boutique en ligne spécialisée dans la vente de figurines peintes pour JDR (D&D, Pathfinder…)</li>
               <li>Gestion complète de l'e-commerce : catalogue, commandes, stocks, expéditions</li>
