@@ -238,10 +238,11 @@
       padding: 1rem 0 1rem 1.5rem;
       border-left: 2px solid var(--border);
       position: relative;
-      opacity: 0; transform: translateY(10px);
+      opacity: 1; transform: none;
       transition: opacity .4s, transform .4s;
     }
-    .tli.vis { opacity: 1; transform: none; }
+    .tli.animate { opacity: 0; transform: translateY(10px); }
+    .tli.animate.vis { opacity: 1; transform: none; }
     .tli:last-child { padding-bottom: 0; }
     .tli::before {
       content: '';
@@ -687,7 +688,7 @@
           <div class="it">
             <div class="ico">🐉</div>
             <div class="nm">Jeux de rôle</div>
-            <div class="ds">Maître du Jeu depuis 4 ans</div>
+            <div class="ds">Maître du Jeu depuis <span id="jdr-years"></span></div>
           </div>
           <div class="it">
             <div class="ico">🎲</div>
