@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zao Barrez-Girardot — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --white:    #ffffff;
+      --bg:       #f5f4f2;
+      --surface:  #ffffff;
+      --border:   #e8e4de;
+      --border2:  #d5cfc6;
+      --text:     #1a1816;
+      --text2:    #5a5450;
+      --text3:    #9a938a;
+      --accent:   #2c5282;
+      --accent2:  #3a6ea8;
+      --tag-bg:   #eef2f8;
+      --tag-text: #2c5282;
+      --radius:   14px;
+      --radius-sm:8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: .75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-name {
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--text);
+      letter-spacing: -.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--text2);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    @media (max-width: 560px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 2rem 4rem;
+    }
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-contacts { justify-content: center !important; }
+    }
+
+    .avatar-wrap { position: relative; width: 130px; height: 130px; }
+    .avatar-wrap img, .avatar-placeholder {
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border);
+      display: block;
+      background: var(--bg);
+    }
+    .avatar-placeholder {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem;
+    }
+    .status-dot {
+      position: absolute;
+      bottom: 6px; right: 6px;
+      width: 16px; height: 16px;
+      background: #3da86a;
+      border-radius: 50%;
+      border: 2.5px solid white;
+    }
+
+    .hero-kicker {
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .6rem;
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: .8rem;
+    }
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--text2);
+      max-width: 520px;
+      margin-bottom: 1.6rem;
+    }
+    .hero-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .38rem .9rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: .82rem;
+      color: var(--text2);
+      text-decoration: none;
+      font-weight: 500;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .pill:hover { border-color: var(--accent2); color: var(--accent); background: var(--tag-bg); }
+
+    /* ── MAIN LAYOUT ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 780px) {
+      .container { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 1px 1fr;
+      gap: 0 1.4rem;
+      position: relative;
+      padding-bottom: 1.8rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .45s, transform .45s;
+    }
+    .tl-item.visible { opacity: 1; transform: none; }
+    .tl-item:last-child { padding-bottom: 0; }
+
+    .tl-line {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tl-dot {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 2px var(--accent);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .tl-connector {
+      flex: 1;
+      width: 1px;
+      background: var(--border2);
+      margin-top: 4px;
+    }
+    .tl-item:last-child .tl-connector { display: none; }
+
+    .tl-date {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: .04em;
+      margin-bottom: .15rem;
+    }
+    .tl-title {
+      font-weight: 600;
+      font-size: .97rem;
+      color: var(--text);
+      margin-bottom: .1rem;
+      line-height: 1.3;
+    }
+    .tl-place {
+      font-size: .83rem;
+      color: var(--text3);
+      margin-bottom: .6rem;
+      font-style: italic;
+    }
+    .tl-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+    }
+    .tl-bullets li {
+      font-size: .88rem;
+      color: var(--text2);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .tl-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--text3);
+    }
+
+    /* ── SIDEBAR CARDS ── */
+    .info-list { display: flex; flex-direction: column; gap: .85rem; }
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: .8rem;
+      font-size: .9rem;
+    }
+    .info-icon {
+      width: 32px; height: 32px;
+      border-radius: var(--radius-sm);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+    .info-label { font-size: .73rem; color: var(--text3); line-height: 1.2; }
+    .info-value { font-weight: 500; color: var(--text); line-height: 1.3; font-size: .9rem; }
+    .info-value a { color: var(--accent); text-decoration: none; }
+    .info-value a:hover { text-decoration: underline; }
+
+    /* ── TAGS ── */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .tag {
+      display: inline-block;
+      padding: .3rem .75rem;
+      background: var(--tag-bg);
+      border: 1px solid #d4e0f0;
+      color: var(--tag-text);
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 500;
+    }
+    .tag.green {
+      background: #edf7f2;
+      border-color: #b8e0cc;
+      color: #276749;
+    }
+    .tag.gray {
+      background: var(--bg);
+      border-color: var(--border2);
+      color: var(--text2);
+    }
+
+    /* ── ALTERNANCE BANNER ── */
+    .alternance-banner {
+      background: var(--tag-bg);
+      border: 1px solid #c8d9ef;
+      border-radius: var(--radius-sm);
+      padding: .9rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      margin-bottom: 1.8rem;
+    }
+    .alternance-banner .icon { font-size: 1.3rem; }
+    .alternance-banner strong { font-size: .88rem; color: var(--accent); display: block; margin-bottom: .1rem; }
+    .alternance-banner span { font-size: .8rem; color: var(--text2); }
+
+    /* ── PASSIONS ── */
+    .passion-grid { display: flex; flex-direction: column; gap: .75rem; }
+    .passion-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .9rem;
+      padding: .9rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .passion-icon { font-size: 1.3rem; line-height: 1; margin-top: .1rem; }
+    .passion-item h4 { font-weight: 600; font-size: .9rem; color: var(--text); margin-bottom: .15rem; }
+    .passion-item p { font-size: .82rem; color: var(--text2); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    footer p { font-size: .82rem; color: var(--text3); }
+    footer strong { color: var(--text); font-weight: 600; }
+
+    /* ── UTILS ── */
+    .mb-0 { margin-bottom: 0 !important; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Zao Barrez-Girardot</span>
+  <ul class="nav-links">
+    <li><a href="#experiences">Expériences</a></li>
+    <li><a href="#formations">Formations</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <div class="avatar-wrap">
+      <!--
+        ╔══════════════════════════════════════════╗
+        ║  Ajoute ta photo dans le même dossier   ║
+        ║  Renomme-la "photo.jpg"                 ║
+        ║  Puis remplace le div par :             ║
+        ║  <img src="photo.jpg" alt="Zao">        ║
+        ╚══════════════════════════════════════════╝
+      -->
+      <div class="avatar-placeholder">🙂</div>
+      <div class="status-dot" title="Disponible en alternance"></div>
+    </div>
+
+    <div>
+      <p class="hero-kicker">BTS MCO en alternance · Disponible</p>
+      <h1>Zao Barrez-Girardot</h1>
+      <p class="hero-bio">
+        Étudiant en BTS Management Commercial Opérationnel à Sup de Vente (Paris).
+        Passionné par l'univers du jeu, je recherche une alternance dans ce secteur
+        pour y apporter mon sens du contact et ma créativité.
+      </p>
+      <div class="hero-contacts">
+        <a href="mailto:zaogirardot@gmail.com" class="pill">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          zaogirardot@gmail.com
+        </a>
+        <a href="tel:0610749509" class="pill">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L9.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17v-.08Z"/></svg>
+          06 10 74 95 09
+        </a>
+        <span class="pill">📍 Bagnolet (93)</span>
+        <span class="pill" id="age-pill">⏳</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- ══ COLONNE PRINCIPALE ══ -->
+  <div class="main-col">
+
+    <!-- Alternance banner -->
+    <div class="alternance-banner">
+      <span class="icon">🗓️</span>
+      <div>
+        <strong>Rythme d'alternance</strong>
+        <span>2 jours en entreprise (semaine A) · 3 jours en entreprise (semaine B)</span>
+      </div>
+    </div>
+
+    <!-- EXPÉRIENCES -->
+    <div class="card" id="experiences">
+      <p class="section-title">Expériences professionnelles</p>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+          <div>
+            <p class="tl-date">Février 2024</p>
+            <p class="tl-title">Agent de distribution — Magazine Akiltour</p>
+            <p class="tl-place">Festival International des Jeux (FIJ) · Cannes</p>
+            <ul class="tl-bullets">
+              <li>Organisation de la distribution du magazine gratuit Akiltour</li>
+              <li>Coordination avec les équipes de l'événement</li>
+              <li>Mise en place du stand et gestion des stocks de magazines</li>
+              <li>Gestion des imprévus et réactivité sur le terrain</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+          <div>
+            <p class="tl-date">Juillet 2023</p>
+            <p class="tl-title">Agent d'accueil et de distribution — Magazine Akiltour</p>
+            <p class="tl-place">Paris est Ludique (PEL) · Paris</p>
+            <ul class="tl-bullets">
+              <li>Accueil positif des visiteurs à l'entrée du salon</li>
+              <li>Distribution du magazine et orientation des participants</li>
+              <li>Collaboration avec l'équipe de l'événement</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+          <div>
+            <p class="tl-date">Juillet 2022</p>
+            <p class="tl-title">Agent d'accueil et de distribution — Magazine Akiltour</p>
+            <p class="tl-place">Paris est Ludique (PEL) · Paris</p>
+            <ul class="tl-bullets">
+              <li>Distribution du magazine gratuit Akiltour</li>
+              <li>Accueil et orientation des visiteurs</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FORMATIONS -->
+    <div class="card" id="formations">
+      <p class="section-title">Formations &amp; Diplômes</p>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+          <div>
+            <p class="tl-date">2024 – 2026 · En cours</p>
+            <p class="tl-title">BTS Management Commercial Opérationnel (MCO) — Alternance</p>
+            <p class="tl-place">Sup de Vente · Paris 14e</p>
+            <ul class="tl-bullets">
+              <li>Formation orientée vente, gestion de la relation client et management commercial</li>
+              <li>Contact école : Franck BIZEUL — <a href="mailto:fbizeul@supdev.fr" style="color:var(--accent)">fbizeul@supdev.fr</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+          <div>
+            <p class="tl-date">2021 – 2024</p>
+            <p class="tl-title">Baccalauréat Général</p>
+            <p class="tl-place">St Benoist de l'Europe · Bagnolet</p>
+            <ul class="tl-bullets">
+              <li>Spécialité Sciences Économiques et Sociales + Mathématiques</li>
+              <li>Option Art</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-line"><div class="tl-dot"></div><div class="tl-connector"></div></div>
+          <div>
+            <p class="tl-date">2021</p>
+            <p class="tl-title">Brevet des Collèges — Mention Bien</p>
+            <p class="tl-place">St Benoist de l'Europe · Bagnolet</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ SIDEBAR ══ -->
+  <div class="sidebar">
+
+    <!-- COMPÉTENCES -->
+    <div class="card" id="competences">
+      <p class="section-title">Compétences</p>
+      <div class="tag-cloud mb-0">
+        <span class="tag">Improvisation</span>
+        <span class="tag">Créativité</span>
+        <span class="tag">Écoute active</span>
+        <span class="tag">Communication</span>
+        <span class="tag">Optimisme</span>
+        <span class="tag">Connaissance des jeux</span>
+        <span class="tag gray">Suite Office</span>
+        <span class="tag gray">Windows</span>
+        <span class="tag gray">Certification Pix 600</span>
+        <span class="tag green">Anglais B1</span>
+      </div>
+    </div>
+
+    <!-- INFOS PRATIQUES -->
+    <div class="card" id="contact">
+      <p class="section-title">Informations</p>
+      <div class="info-list">
+        <div class="info-row">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value"><a href="mailto:zaogirardot@gmail.com">zaogirardot@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📱</div>
+          <div>
+            <div class="info-label">Téléphone</div>
+            <div class="info-value"><a href="tel:0610749509">06 10 74 95 09</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Localisation</div>
+            <div class="info-value">Bagnolet (93)</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🎂</div>
+          <div>
+            <div class="info-label">Âge</div>
+            <div class="info-value" id="age-display">—</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🔗</div>
+          <div>
+            <div class="info-label">LinkedIn</div>
+            <div class="info-value"><a href="https://linkedin.com/in/zao-barrez-girardot" target="_blank">Zao Barrez-Girardot</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📸</div>
+          <div>
+            <div class="info-label">Instagram</div>
+            <div class="info-value">Ka1arma</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSIONS -->
+    <div class="card">
+      <p class="section-title">Passions</p>
+      <div class="passion-grid mb-0">
+        <div class="passion-item">
+          <span class="passion-icon">🐉</span>
+          <div>
+            <h4>Jeux de rôle (JDR)</h4>
+            <p>Maître du Jeu sur D&D et autres systèmes depuis 4 ans — création de scénarios, narration, gestion de groupe.</p>
+          </div>
+        </div>
+        <div class="passion-item">
+          <span class="passion-icon">🎲</span>
+          <div>
+            <h4>Jeux de société</h4>
+            <p>Passionné par la culture ludique : jeux de plateau, jeux de stratégie, nouveautés du marché.</p>
+          </div>
+        </div>
+        <div class="passion-item">
+          <span class="passion-icon">📖</span>
+          <div>
+            <h4>Littérature fantastique</h4>
+            <p>Amateur de fantasy et d'univers imaginaires.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Zao Barrez-Girardot</strong></p>
+  <p style="margin-top:.4rem">BTS MCO en alternance · Sup de Vente 2024–2026 · Bagnolet (93)</p>
+</footer>
+
+<script>
+  // ── Calcul automatique de l'âge ──
+  function getAge(birth) {
+    const today = new Date();
+    const b = new Date(birth);
+    let age = today.getFullYear() - b.getFullYear();
+    const m = today.getMonth() - b.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < b.getDate())) age--;
+    return age;
+  }
+  const age = getAge('2006-09-20');
+  document.getElementById('age-display').textContent = age + ' ans';
+  document.getElementById('age-pill').textContent = '🎂 ' + age + ' ans';
+
+  // ── Scroll animations ──
+  const items = document.querySelectorAll('.tl-item');
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  items.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
