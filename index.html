@@ -197,9 +197,19 @@
       display: grid;
       grid-template-columns: 1fr 292px;
       gap: 1.6rem;
-      align-items: start;
+      align-items: stretch;
     }
     @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+
+    /* Les colonnes s'étendent sur toute la hauteur */
+    .grid > div {
+      display: flex;
+      flex-direction: column;
+    }
+    /* La dernière card de chaque colonne prend l'espace restant */
+    .grid > div > .card:last-child {
+      flex: 1;
+    }
 
     /* ── CARD ── */
     .card {
